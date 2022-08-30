@@ -16,7 +16,7 @@ namespace Assignment5
         private Item foundItem = null;
 
         [SetUp]
-        private void Setup()
+        public void Setup()
         {
             inventory = new Inventory(2);
             item_01 = new Item("Test1",1,ItemGroup.Equipment);
@@ -46,10 +46,10 @@ namespace Assignment5
             Assert.IsTrue(inventory.AvailableSlots == 1);
 
             Assert.IsTrue(inventory.AddItem(item_02));
-            Assert.IsTrue(inventory.ListAllItems().Count == 0);
+            Assert.IsTrue(inventory.AvailableSlots == 0);
 
             Assert.IsFalse(inventory.AddItem(item_03));
-            Assert.IsTrue(inventory.ListAllItems().Count == 0);
+            Assert.IsTrue(inventory.AvailableSlots == 0);
 
             var tempList = inventory.ListAllItems();
             Assert.AreEqual(item_01, tempList[0]);
@@ -60,14 +60,11 @@ namespace Assignment5
         public void Reset()
         {
             Assert.IsTrue(inventory.AddItem(item_01));
-            Assert.IsTrue(inventory.AvailableSlots == 1);
-
             Assert.IsTrue(inventory.AddItem(item_02));
-            Assert.IsTrue(inventory.ListAllItems().Count == 0);
 
             inventory.Reset();
 
-            Assert.IsTrue(inventory.AvailableSlots == inventory.MaxSlots);
+            Assert.IsTrue(inventory.ListAllItems().Count == 0);
         }
     }
 }

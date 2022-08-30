@@ -34,8 +34,9 @@ namespace Assignment5
 
         public Inventory(int slots)
         {
-            availableSlots = maxSlots;
             maxSlots = slots;
+            availableSlots = maxSlots;
+            items = new Dictionary<Item, int>();
         }
 
         /// <summary>
@@ -89,7 +90,7 @@ namespace Assignment5
             // Reduce the slot once it's been added.
             // returns false if the inventory is full
             
-            if(availableSlots != 0)
+            if(availableSlots > 0)
             {
                 foreach(var key in items)
                 {
