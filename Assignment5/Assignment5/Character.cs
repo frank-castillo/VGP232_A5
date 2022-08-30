@@ -46,6 +46,7 @@ namespace Assignment5
 
             if (Health <= 0)
             {
+                Health = 0;
                 IsAlive = false;
             }
         }
@@ -57,6 +58,16 @@ namespace Assignment5
         public void RestoreHealth(int amount)
         {
             Health += amount;
+
+            if(Health > MaxHealth)
+            {
+                Health = MaxHealth;
+            }
+
+            if(!IsAlive)
+            {
+                IsAlive = true;
+            }
         }
 
         public override string ToString()
