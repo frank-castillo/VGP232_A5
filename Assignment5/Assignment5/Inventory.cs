@@ -54,26 +54,19 @@ namespace Assignment5
         /// <param name="name">The item name</param>
         /// <param name="found">The item if found</param>
         /// <returns>True if you find the item, and false if it does not exist.</returns>
-        public bool TakeItem(string name, out Item found)
+        public bool TakeItem(Item item)
         {
-            found = null;
-
-            foreach(var item in items)
+            if (items.ContainsKey(item))
             {
-                if(item.Key.Name == name)
+                if (items[item] == 1)
                 {
-                    found  = item.Key;
-
-                    if(item.Value == 1)
-                    {
-                        items.Remove(item.Key);
-                        availableSlots++;
-                        return true;
-                    }
-
-                    items[item.Key] -= 1;
+                    items.Remove(item);
+                    availableSlots++;
                     return true;
                 }
+
+                items[item] -= 1;
+                return true;
             }
 
             return false;
@@ -89,38 +82,38 @@ namespace Assignment5
             // Add it in the items dictionary and increment it the number if it already exist
             // Reduce the slot once it's been added.
             // returns false if the inventory is full
-            
-            if(availableSlots > 0)
+
+            if (items.ContainsKey(item))
             {
-                foreach(var key in items)
+                ++items[item];
+                return true;
+            }
+            else
+            {
+                if (availableSlots == 0)
                 {
-                    if(key.Key.Name == item.Name)
-                    {
-                        items[key.Key] += item.Amount;
-                        return true;
-                    }
+                    Console.WriteLine("Full!");
+                    return false;
                 }
 
-                items.Add(item, item.Amount);
+                items.Add(item, 1);
                 --availableSlots;
                 return true;
             }
-
-            return false;
         }
 
         /// <summary>
         /// Iterates through the dictionary and create a list of all the items.
         /// </summary>
         /// <returns></returns>
-        public List<Item>ListAllItems()
+        public List<Item> ListAllItems()
         {
             // use a foreach loop to iterate through the key value pairs and duplicate the item base on the quantity.
             List<Item> itemList = new List<Item>();
 
-            foreach(var item in items)
+            foreach (var item in items)
             {
-                for(int i = 0; i < item.Value; ++i)
+                for (int i = 0; i < item.Value; ++i)
                 {
                     itemList.Add(item.Key);
                 }

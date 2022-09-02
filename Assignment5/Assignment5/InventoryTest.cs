@@ -30,11 +30,11 @@ namespace Assignment5
             Assert.IsTrue(inventory.AddItem(item_01));
             Assert.IsTrue(inventory.AddItem(item_02));
 
-            Assert.IsTrue(inventory.TakeItem("Test1", out foundItem));
+            Assert.IsTrue(inventory.TakeItem(item_01));
             Assert.IsTrue(foundItem != null);
             Assert.IsTrue(inventory.AvailableSlots == 1);
             
-            Assert.IsFalse(inventory.TakeItem("Test3", out foundItem));
+            Assert.IsFalse(inventory.TakeItem(item_03));
             Assert.IsTrue(foundItem == null);
             Assert.IsTrue(inventory.AvailableSlots == 1);
         }
