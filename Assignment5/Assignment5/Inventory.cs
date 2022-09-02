@@ -21,7 +21,7 @@ namespace Assignment5
         {
             get
             {
-                return MaxSlots;
+                return maxSlots;
             }
         }
 
